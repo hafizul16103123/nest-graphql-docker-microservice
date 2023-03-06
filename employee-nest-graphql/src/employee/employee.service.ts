@@ -20,7 +20,7 @@ export class EmployeeService {
 
   async findAll() {
     const res = await this.employeeModel.find();
-    return res;
+    return {statusCode:200,result:res,message:"All Employee"};
   }
 
   async findOne(id: string) {

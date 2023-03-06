@@ -66,7 +66,6 @@ export class ProjectResolver {
 
   @ResolveField(() => Location)
   location(@Parent() project: Project) {
-    console.log('getLocation ->>>>>>>', project);
     return { __typename: 'Location', id: project.locationId };
   }
 }
