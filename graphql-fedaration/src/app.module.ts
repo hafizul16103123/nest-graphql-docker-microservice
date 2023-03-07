@@ -6,7 +6,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloGatewayDriverConfig>({
-      
+
       driver: ApolloGatewayDriver,
       server: {
         // ... Apollo secalenrver options
@@ -16,11 +16,11 @@ import { GraphQLModule } from '@nestjs/graphql';
         supergraphSdl: new IntrospectAndCompose({
           subgraphs: [
             { name: 'employee', url: 'http://localhost:3000/graphql' },
-            { name: 'location', url: 'http://localhost:3001/graphql' },
+            // { name: 'location', url: 'http://localhost:3001/graphql' },
           ],
         }),
       },
     }),
   ],
 })
-export class AppModule {}
+export class AppModule { }
