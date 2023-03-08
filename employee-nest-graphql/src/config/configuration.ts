@@ -14,4 +14,4 @@ const configuaration = (): IConfig => {
 
 
 };
-export default configuaration()
+export const config = configuaration()

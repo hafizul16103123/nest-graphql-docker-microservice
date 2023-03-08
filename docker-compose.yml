@@ -17,11 +17,11 @@ services:
       ENVIRONMENT: local
     build:
       context: ./location-nest-graphql
-  # graphql_fedaration:
-  #   restart: always
-  #   ports:
-  #     - 4000:4000
-  #   environment:
-  #     ENVIRONMENT: local
-  #   build:
-  #     context: ./graphql-fedaration
+  graphql_fedaration:
+    restart: always
+    ports:
+      - 4000:4000
+    environment:
+      ENVIRONMENT: local
+    build:
+      context: ./graphql-fedaration

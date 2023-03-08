@@ -12,21 +12,35 @@ import { EmployeeModule } from './employee/employee.module';
 import { ProjectModule } from './project/project.module';
 import { Location } from './project/entities/location.entity';
 import { ConfigModule } from '@nestjs/config';
-import configuaration from './config/configuration';
+// import {config} from './config/configuration';
 
 @Module({
   imports: [
-    GraphQLModule.forRoot<ApolloFederationDriverConfig>({
+    // GraphQLModule.forRoot<ApolloFederationDriverConfig>({
+    //   driver: ApolloFederationDriver,
+    //   federation: 2,
+    //   autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+    //   buildSchemaOptions: {
+    //     orphanedTypes: [Location],
+    //   },
+    // }),
+    GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloFederationDriver,
-      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      // autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      autoSchemaFile: {
+        federation: 2,
+      },
       buildSchemaOptions: {
         orphanedTypes: [Location],
       },
+
     }),
-    MongooseModule.forRoot('mongodb://devops:devops007@localhost:27017'),
+    // MongooseModule.forRoot('mongodb://localhost:27017/graphql_microservice'),
+    MongooseModule.forRoot('mongodb://127.0.0.1:27017/myapp'),
     EmployeeModule,
     ProjectModule,
-    ConfigModule.forRoot({load: [configuaration],isGlobal: true})
+    // ConfigModule.forRoot({ load: [config], isGlobal: true })
+    ConfigModule.forRoot({ isGlobal: true })
   ]
 })
-export class AppModule {}
+export class AppModule { }
