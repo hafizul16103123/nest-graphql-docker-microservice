@@ -2,6 +2,7 @@ import { IntrospectAndCompose } from '@apollo/gateway';
 import { ApolloGatewayDriverConfig, ApolloGatewayDriver } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
+import { config } from './config/configuration';
 
 @Module({
   imports: [
@@ -17,8 +18,10 @@ import { GraphQLModule } from '@nestjs/graphql';
           subgraphs: [
             // { name: 'employee', url: 'http://employee_service:3000/graphql' },
             // { name: 'location', url: 'http://location_service:3001/graphql' },
-            { name: 'employee', url: 'http://localhost:3000/graphql' },
-            { name: 'location', url: 'http://localhost:3001/graphql' },
+            { name: 'employee', url: config.employeeService },
+            { name: 'location', url: config.locationService },
+            // { name: 'employee', url: 'http://localhost:3000/graphql' },
+            // { name: 'location', url: 'http://localhost:3001/graphql' },
           ],
         }),
       },

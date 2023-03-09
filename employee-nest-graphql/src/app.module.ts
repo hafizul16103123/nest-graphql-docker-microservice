@@ -7,12 +7,10 @@ import {
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
-import { join } from 'path';
 import { EmployeeModule } from './employee/employee.module';
 import { ProjectModule } from './project/project.module';
 import { Location } from './project/entities/location.entity';
-import { ConfigModule } from '@nestjs/config';
-// import {config} from './config/configuration';
+import { config } from './config/configuration';
 
 @Module({
   imports: [
@@ -35,12 +33,10 @@ import { ConfigModule } from '@nestjs/config';
       },
 
     }),
-    // MongooseModule.forRoot('mongodb://localhost:27017/graphql_microservice'),
-    MongooseModule.forRoot('mongodb://127.0.0.1:27017/myapp'),
+
+    MongooseModule.forRoot(config.databaseURL),
     EmployeeModule,
     ProjectModule,
-    // ConfigModule.forRoot({ load: [config], isGlobal: true })
-    ConfigModule.forRoot({ isGlobal: true })
   ]
 })
 export class AppModule { }

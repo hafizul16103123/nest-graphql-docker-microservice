@@ -1,11 +1,31 @@
 version: "3"
 services:
+
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - 27000:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: pass
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: pass
+      ME_CONFIG_MONGODB_URL: mongodb://root:pass@mongo:27017
+
   employee_service:
     restart: always
     ports:
       - 3000:3000
     environment:
-      ENVIRONMENT: local
+      MONGODB_URL: 'mongodb://root:pass@mongo:27017'
     build:
       context: ./employee-nest-graphql
 
@@ -14,7 +34,7 @@ services:
     ports:
       - 3001:3001
     environment:
-      ENVIRONMENT: local
+      MONGODB_URL: 'mongodb://root:pass@mongo:27017'
     build:
       context: ./location-nest-graphql
   graphql_fedaration:
@@ -22,6 +42,8 @@ services:
     ports:
       - 4000:4000
     environment:
-      ENVIRONMENT: local
+      MONGODB_URL: 'mongodb://root:pass@mongo:27017'
+      EMPLOYEE_SERVICE: 'http://employee_service:3000/graphql'
+      LOCATION_SERVICE: 'http://location_service:3001/graphql'
     build:
       context: ./graphql-fedaration
