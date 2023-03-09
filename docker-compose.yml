@@ -9,6 +9,8 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: pass
+    # volumes:
+    #   - ./storage/mongo:/data/db  
 
   mongo-express:
     image: mongo-express
@@ -25,7 +27,7 @@ services:
     ports:
       - 3000:3000
     environment:
-      MONGODB_URL: 'mongodb://root:pass@mongo:27017'
+      MONGODB_URL: 'mongodb://root:pass@mongo:27017/employee_db?authSource=admin&directConnection=true'
     build:
       context: ./employee-nest-graphql
 
@@ -34,7 +36,7 @@ services:
     ports:
       - 3001:3001
     environment:
-      MONGODB_URL: 'mongodb://root:pass@mongo:27017'
+      MONGODB_URL: 'mongodb://root:pass@mongo:27017/employee_db?authSource=admin&directConnection=true'
     build:
       context: ./location-nest-graphql
   graphql_fedaration:
